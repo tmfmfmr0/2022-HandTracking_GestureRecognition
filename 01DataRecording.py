@@ -1,10 +1,9 @@
 import cv2
 import mediapipe as mp
+import pandas as pd
 import numpy as np
 import time
 import os
-import pandas as pd
-import pickle
 
 actions = ['a', 'b', 'c']	# 0, 1, 2...    # 'back', 'home', 'overview', 'click', 'zoomIn', 'zoomOut'
 
