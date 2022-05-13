@@ -80,6 +80,6 @@ while cap.isOpened():    # 캠 열려있는동안
 
 		print(action, df, end='\n\n\n')
 
-		df.to_csv(f".\\Dataset\\df_{action}_{created_time}.csv", header=None, index=None)
+		df.to_csv(f".\\Dataset\\{action}_{created_time}.csv", header=None, index=None)
 
 	break
