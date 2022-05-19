@@ -79,6 +79,8 @@ while cap.isOpened():
 			if cv2.waitKey(1) == ord('q'):
 				break
 
+		# print(action, angleData, end='\n\n\n')
+		
 		# 문제지-정답지 데이터프레임 생성
 		df = pd.DataFrame(angleData)
 		df['label'] = label

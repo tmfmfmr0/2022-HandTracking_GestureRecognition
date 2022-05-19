@@ -69,16 +69,15 @@ while cap.isOpened():
             confidence = Yprobabilities[Yindex]
 
             # 특정 확률 이상일 때
-            if confidence < 0.9:
+            if confidence < 0.98:
                 continue
 
             action = actions[Yindex]
             actionPredicted.append(action)
 
+            # 특정 횟수만큼 같은 동작이라고 판단되면
             if len(actionPredicted) < 3:
                 continue
-
-            # 특정 횟수만큼 같은 동작이라고 판단되면
             predictedAs = ''
             if actionPredicted[-1] == actionPredicted[-2] == actionPredicted[-3]:
                 predictedAs = action
@@ -90,3 +89,4 @@ while cap.isOpened():
     cv2.imshow('img', img)
     if cv2.waitKey(1) == ord('q'):
         break
+
