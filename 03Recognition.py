@@ -58,9 +58,10 @@ while cap.isOpened():
             # 설정한 시퀀스길이만큼 데이터 생겨야 판단
             if len(angleData) < seqLength:
                 continue
-
             # 설정한 시퀀스길이만큼의 데이터를 문제지로
             Xdata = np.expand_dims(np.array(angleData[-seqLength:]), axis=0)
+            # # 판단 확률 출력
+            # print(model.predict(Xdata))
             # 라벨별 예측 확률
             Yprobabilities = model.predict(Xdata).squeeze()
             # 가장 확률 높은 라벨
@@ -69,7 +70,7 @@ while cap.isOpened():
             confidence = Yprobabilities[Yindex]
 
             # 특정 확률 이상일 때
-            if confidence < 0.98:
+            if confidence < 0.99:
                 continue
 
             action = actions[Yindex]
