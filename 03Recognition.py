@@ -62,6 +62,7 @@ while cap.isOpened():
             Xdata = np.expand_dims(np.array(angleData[-seqLength:]), axis=0)
             # # 판단 확률 출력
             # print(model.predict(Xdata))
+            
             # 라벨별 예측 확률
             Yprobabilities = model.predict(Xdata).squeeze()
             # 가장 확률 높은 라벨
