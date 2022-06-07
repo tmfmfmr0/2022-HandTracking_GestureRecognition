@@ -75,20 +75,4 @@ while cap.isOpened():
 
 		np.save(f'./Dataset/{action}', narr)
 
-		# df = pd.DataFrame(dict(rows = list(narr)))
-
-		# # 데이터프레임 생성
-		# df = pd.DataFrame(narr)
-		# df['label'] = label
-
-		# print(df, end='\n\n\n')
-
-		# # 데이터프레임 저장
-		# df.to_csv(f".\\Dataset\\{action}_df.csv")
-
-
-		# # 데이터프레임 numpy화
-		# a = df.to_numpy()
-		# print(a)
-
 	break
