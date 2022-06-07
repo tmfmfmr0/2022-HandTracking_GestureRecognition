@@ -10,7 +10,7 @@ actions = ['a']
 
 # 시퀀스 길이, 녹화시간
 seq_length = 10
-recording_time = 5
+recording_time = 1
 
 # MediaPipe hands model 초기화
 mp_hands = mp.solutions.hands
