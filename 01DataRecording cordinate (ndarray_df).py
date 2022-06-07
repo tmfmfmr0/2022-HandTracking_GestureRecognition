@@ -8,8 +8,7 @@ import os
 # 제스처 종류
 actions = ['a']
 
-# 시퀀스 길이, 녹화시간
-seq_length = 10
+# 녹화시간
 recording_time = 1
 
 # MediaPipe hands model 초기화
@@ -72,17 +71,20 @@ while cap.isOpened():
 		# numpy화
 		narr = np.array(coordData)
 		print(narr)
+		print(narr.shape)
 
-		df = pd.DataFrame(dict(rows = list(narr)))
+		np.save(f'./Dataset/{action}', narr)
+
+		# df = pd.DataFrame(dict(rows = list(narr)))
 
 		# # 데이터프레임 생성
 		# df = pd.DataFrame(narr)
-		df['label'] = label
+		# df['label'] = label
 
 		# print(df, end='\n\n\n')
 
 		# # 데이터프레임 저장
-		df.to_csv(f".\\Dataset\\{action}_df.csv")
+		# df.to_csv(f".\\Dataset\\{action}_df.csv")
 
 
 		# # 데이터프레임 numpy화
