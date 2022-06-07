@@ -68,6 +68,7 @@ while cap.isOpened():
 						v[[1,2,3,5,6,7,9,10,11,13,14,15,17,18,19],:]))
 					# 라디안 단위 변환
 					angle = np.degrees(angle)
+
 					# 데이터 구성
 					angleData.append(angle)
 

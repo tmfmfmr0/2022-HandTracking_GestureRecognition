@@ -51,10 +51,10 @@ while cap.isOpened():
 			if result.multi_hand_landmarks:
 				for res in result.multi_hand_landmarks:
 					# 모든 랜드마크 좌표
-					lm_coordinates = []
+					lm_coordinates = np.zeros((21, 3))
 					# 각 랜드마크 좌표
 					for i, lm in enumerate(res.landmark):
-						lm_coordinates.append([lm.x, lm.y, lm.z])
+						lm_coordinates[i] = [lm.x, lm.y, lm.z]
 
 					# 데이터 구성
 					coordData.append(lm_coordinates)
@@ -68,16 +68,17 @@ while cap.isOpened():
 				break
 
 		# 데이터프레임 생성
-		df = pd.DataFrame(coordData)
-		df['label'] = label
+		# df = pd.DataFrame(coordData)
+		# df['label'] = label
 
-		print(action, df, end='\n\n\n')
+		print(action, coordData, end='\n\n\n')
+		# print(action, df, end='\n\n\n')
 
 		# 데이터프레임 저장
 		# df.to_csv(f".\\Dataset\\{action}_coordinate.csv", header=None, index=None)
 
-		# 데이터프레임 넘파이화
-		a = df.to_numpy()
-		print(a)
+		# # 데이터프레임 넘파이화
+		# a = df.to_numpy()
+		# print(a)
 
 	break
