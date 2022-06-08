@@ -63,8 +63,8 @@ while cap.isOpened():
 					# 단위벡터로 표준화 normalize
 					v = v / np.linalg.norm(v, axis=1)[:, np.newaxis]    # 내적할 수 있게 열 벡터로
 					# 내적을 이용한 각도 계산 ( a•b = |a||b|cos(Θ) )
-					angle = np.arccos(np.einsum('nt,nt->n',     # 내적, cos의 역수
-						v[[0,1,2,4,5,6,8, 9,10,12,13,14,16,17,18],:], 
+					angle = np.arccos(np.einsum('nt,nt->n',    # 내적, cos의 역수
+						v[[0,1,2,4,5,6,8, 9,10,12,13,14,16,17,18],:],
 						v[[1,2,3,5,6,7,9,10,11,13,14,15,17,18,19],:]))
 					# 라디안 단위 변환
 					angle = np.degrees(angle)
@@ -89,6 +89,6 @@ while cap.isOpened():
 		# print(action, df, end='\n\n\n')
 
 		# 데이터프레임 저장
-		df.to_csv(f".\\Dataset\\{action}.csv", header=None, index=None)
+		df.to_csv(f"./Dataset_o/{action}.csv", header=None, index=None)
 
 	break

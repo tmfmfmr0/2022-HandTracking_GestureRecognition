@@ -6,7 +6,7 @@ import time
 import os
 
 # 제스처 종류
-actions = ['a']
+actions = ['a', 'b', 'c', 'd']
 
 # 녹화시간
 recording_time = 1
