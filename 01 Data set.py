@@ -1,6 +1,5 @@
 import cv2
 import mediapipe as mp
-import pandas as pd
 import numpy as np
 import time
 import os
@@ -68,11 +67,8 @@ while cap.isOpened():
 
 		print(coordData, end='\n\n\n')
 
-		# numpy화
 		narr = np.array(coordData)
 		print(narr)
 		print(narr.shape)
-
 		np.save(f'./Dataset/{action}', narr)
-
 	break
