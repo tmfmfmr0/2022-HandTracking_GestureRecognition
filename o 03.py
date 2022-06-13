@@ -16,7 +16,7 @@ hands = mpHands.Hands(max_num_hands=1, min_detection_confidence=0.5, min_trackin
 # 웹캠
 cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
-angleData = []
+angle_data = []
 actionPredicted = []
 
 # 캠 열려있는동안
@@ -32,34 +32,32 @@ while cap.isOpened():
     if result.multi_hand_landmarks :
         for res in result.multi_hand_landmarks:
             # 랜드마크 좌표
-            lm_coordinates = np.zeros((21, 3))
+            coord = np.zeros((21, 3))
             for i, lm in enumerate(res.landmark):
-                lm_coordinates[i] = [lm.x, lm.y, lm.z]
+                coord[i] = [lm.x, lm.y, lm.z]
 
-            # 벡터를 이용한 랜드마크간 각도 계산
-            a1 = lm_coordinates[[0,1,2,3,0,5,6,7,0, 9,10,11, 0,13,14,15, 0,17,18,19], :]
-            a2 = lm_coordinates[[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20], :]
-            v = a2 - a1
-            # 단위벡터로 표준화 normalize
-            v = v / np.linalg.norm(v, axis=1)[:, np.newaxis]    # 내적할 수 있게 열 벡터로
-            # 내적을 이용한 각도 계산 ( a•b = |a||b|cos(Θ) )
-            angle = np.arccos(np.einsum('nt,nt->n',     # 내적, cos의 역수
-                v[[0,1,2,4,5,6,8, 9,10,12,13,14,16,17,18],:], 
-                v[[1,2,3,5,6,7,9,10,11,13,14,15,17,18,19],:]))
-            # 라디안 단위 변환
-            angle = np.degrees(angle)
-            # 데이터 구성
-            angleData.append(angle)
+            a = coord[[ 5,  1,2,3,  5,6,7,   9,10,11,  13,14,15,  17,18,19,  0, 0], :]
+            b = coord[[17,  2,3,4,  6,7,8,  10,11,12,  14,15,16,  18,19,20,  5,17], :]
+            vec = b - a
+            vec_unit = vec / np.linalg.norm(vec, axis=1)[:, np.newaxis]
+            vec_unit = np.append(vec_unit, [[1,0,0]], axis=0)
+            vec_unit = np.append(vec_unit, [[0,1,0]], axis=0)
+            vec_unit = np.append(vec_unit, [[0,0,1]], axis=0)
+            
+            angle = np.arccos( np.einsum('ij, ij->i',
+                vec_unit[[0,1,2,  0,4,5,  0,7,8,   0,10,11,   0,13,14,  3,6,9,12,15,  6,9,12,15,   0, 0, 0], :],
+                vec_unit[[1,2,3,  4,5,6,  7,8,9,  10,11,12,  13,14,15,  0,0,0, 0, 0,  2,2, 2, 2,  18,19,20], :]))
+            angle_data.append(np.degrees(angle))
 
             # 랜드마크 표시
             mpDrawing.draw_landmarks(img, res, mpHands.HAND_CONNECTIONS)
 
         ## 판단
             # 설정한 시퀀스길이만큼 데이터 생겨야 판단
-            if len(angleData) < seqLength:
+            if len(angle_data) < seqLength:
                 continue
             # 설정한 시퀀스길이만큼의 데이터를 문제지로
-            Xdata = np.expand_dims(np.array(angleData[-seqLength:]), axis=0)
+            Xdata = np.expand_dims(np.array(angle_data[-seqLength:]), axis=0)
             # # 판단 확률 출력
             # print(model.predict(Xdata))
             # 라벨별 예측 확률
