@@ -62,28 +62,24 @@ while cap.isOpened():
             Xdata = np.expand_dims(np.array(angleData[-seqLength:]), axis=0)
             # # 판단 확률 출력
             # print(model.predict(Xdata))
-            
             # 라벨별 예측 확률
             Yprobabilities = model.predict(Xdata).squeeze()
             # 가장 확률 높은 라벨
             Yindex = int(np.argmax(Yprobabilities))
             # 그 라벨의 확률
             confidence = Yprobabilities[Yindex]
-
             # 특정 확률 이상일 때
             if confidence < 0.99:
                 continue
 
             action = actions[Yindex]
             actionPredicted.append(action)
-
             # 특정 횟수만큼 같은 동작이라고 판단되면
             if len(actionPredicted) < 3:
                 continue
             predictedAs = ''
             if actionPredicted[-1] == actionPredicted[-2] == actionPredicted[-3]:
                 predictedAs = action
-
             # 판단 결과 출력
             cv2.putText(img, f'{predictedAs}', (10, 50), cv2.FONT_HERSHEY_PLAIN, 2, (255,0,255), 2)
 
