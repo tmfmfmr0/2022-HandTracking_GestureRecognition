@@ -4,15 +4,17 @@ import numpy as np
 from keras.models import load_model
 
 # 제스처 종류
-actions = ['a', 'b', 'c', 'd']
+actions = ['']
 # 데이터 시퀀스 길이, 녹화시간
 seqLength = 15
 # 모델 load
 model = load_model('./Models/model.h5')
+
 # MediaPipe hands model 초기화
 mpHands = mp.solutions.hands
 mpDrawing = mp.solutions.drawing_utils
 hands = mpHands.Hands(max_num_hands=1, min_detection_confidence=0.5, min_tracking_confidence=0.5)
+
 # 웹캠
 cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
