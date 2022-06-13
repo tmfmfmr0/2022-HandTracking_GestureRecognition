@@ -4,7 +4,7 @@ import numpy as np
 from keras.models import load_model
 
 # 제스처 종류
-actions = ['b', 'c', 'd', 'e']
+actions = ['a', 'b', 'c', 'd']
 # 데이터 시퀀스 길이, 녹화시간
 seqLength = 15
 # 모델 load
