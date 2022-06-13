@@ -4,9 +4,9 @@ import numpy as np
 from keras.models import load_model
 
 # 제스처 종류
-actions = ['a', 'b', 'c']
+actions = ['b', 'c', 'd', 'e']
 # 데이터 시퀀스 길이, 녹화시간
-seqLength = 10
+seqLength = 15
 # 모델 load
 model = load_model('./Models/model.h5')
 # MediaPipe hands model 초기화
