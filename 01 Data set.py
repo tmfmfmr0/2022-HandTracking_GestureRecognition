@@ -5,9 +5,9 @@ import time
 import os
 
 # 제스처 종류
-actions = ['a', 'b', 'c', 'd']
+actions = ['NG']
 # 녹화시간
-recording_time = 1
+recording_time = 30
 # MediaPipe hands model 초기화
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
