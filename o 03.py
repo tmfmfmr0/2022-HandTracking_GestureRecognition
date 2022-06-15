@@ -4,7 +4,7 @@ import numpy as np
 from keras.models import load_model
 
 # 제스처 종류
-actions = ['']
+actions = ['a', 'b', 'c', 'd']
 # 데이터 시퀀스 길이, 녹화시간
 seqLength = 15
 # 모델 load
@@ -74,12 +74,14 @@ while cap.isOpened():
 
             action = actions[Yindex]
             actionPredicted.append(action)
+
             # 특정 횟수만큼 같은 동작이라고 판단되면
             if len(actionPredicted) < 3:
                 continue
             predictedAs = ''
             if actionPredicted[-1] == actionPredicted[-2] == actionPredicted[-3]:
                 predictedAs = action
+                
             # 판단 결과 출력
             cv2.putText(img, f'{predictedAs}', (10, 50), cv2.FONT_HERSHEY_PLAIN, 2, (255,0,255), 2)
 
