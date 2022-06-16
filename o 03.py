@@ -4,7 +4,7 @@ import numpy as np
 from keras.models import load_model
 
 # 제스처 종류
-actions = ['a', 'b', 'c', 'd']
+actions = ['a', 'b', 'c']
 # 데이터 시퀀스 길이, 녹화시간
 seqLength = 15
 # 모델 load
@@ -81,6 +81,8 @@ while cap.isOpened():
             predictedAs = ''
             if actionPredicted[-1] == actionPredicted[-2] == actionPredicted[-3]:
                 predictedAs = action
+                
+            pop
                 
             # 판단 결과 출력
             cv2.putText(img, f'{predictedAs}', (10, 50), cv2.FONT_HERSHEY_PLAIN, 2, (255,0,255), 2)
