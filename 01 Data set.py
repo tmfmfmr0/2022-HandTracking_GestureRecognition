@@ -5,7 +5,7 @@ import time
 import os
 
 # 제스처 종류
-actions = ['a', 'b', 'c']
+actions = ['a', 'b', 'c', 'd', 'e']
 # 녹화시간
 recording_time = 3
 # MediaPipe hands model 초기화
