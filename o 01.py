@@ -50,20 +50,22 @@ while cap.isOpened():
 			# 손 있을 때
 			if result.multi_hand_landmarks:
 				for res in result.multi_hand_landmarks:
-					# 모든 랜드마크 좌표
+        
+					# 모든 랜드마크 좌표 저장
 					lm_coordinates = np.zeros((21, 3))
-					# 각 랜드마크 좌표
 					for i, lm in enumerate(res.landmark):
 						lm_coordinates[i] = [lm.x, lm.y, lm.z]
 
-					# 벡터를 이용한 랜드마크간 각도 계산
+					## 벡터를 이용한 각도 계산
+					# 사용할 랜드마크 번호
 					a1 = lm_coordinates[[0,1,2,3,0,5,6,7,0, 9,10,11, 0,13,14,15, 0,17,18,19], :]
 					a2 = lm_coordinates[[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20], :]
+					# 두 랜드마크간의 좌표 차이를 통한 벡터 생성
 					v = a2 - a1
 					# 단위벡터로 표준화 normalize
 					v = v / np.linalg.norm(v, axis=1)[:, np.newaxis]    # 내적할 수 있게 열 벡터로
-					# 내적을 이용한 각도 계산 ( a•b = |a||b|cos(Θ) )
-					angle = np.arccos(np.einsum('nt,nt->n',    # 내적, cos의 역수
+					# 내적을 이용한 두 벡터간의 각도 계산 ( a•b = |a||b|cos(Θ) ) (아인슈타인 합 내적, cos의 역수)
+					angle = np.arccos(np.einsum('nt,nt->n',
 						v[[0,1,2,4,5,6,8, 9,10,12,13,14,16,17,18],:],
 						v[[1,2,3,5,6,7,9,10,11,13,14,15,17,18,19],:]))
 					# 라디안 단위 변환
